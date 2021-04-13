@@ -14,30 +14,31 @@ public class ServerSocket {
 		DatagramSocket ds = new DatagramSocket(3002);
 
 		System.out.println("Server is waiting");
-		
-		String str1="";
-		
-		while(!str1.equals("Bye"))
-		{
 
-		byte bt[] = new byte[1024];
+		String str1 = "";
 
-		DatagramPacket dp = new DatagramPacket(bt, 1024);
+		while (!str1.equals("Bye")) {
 
-		ds.receive(dp);
+			byte bt[] = new byte[1024];
 
-		String str = new String(dp.getData(), 0, dp.getLength());
+			DatagramPacket dp = new DatagramPacket(bt, 1024);
 
-		System.out.println("Client massage :" + str);
+			ds.receive(dp);
 
-		Scanner sc = new Scanner(System.in);
+			String str = new String(dp.getData(), 0, dp.getLength());
 
-		System.out.println("Enter massage :");
-		 str1 = sc.nextLine().trim();
+			System.out.println("Client massage :" + str);
 
-		InetAddress add = InetAddress.getByName("localhost");
+			Scanner sc = new Scanner(System.in);
 
-		DatagramPacket dp1 = new DatagramPacket(str1.getBytes(), str.length(), add, 3002);
+			System.out.println("Enter massage :");
+			str1 = sc.nextLine().trim();
+
+			InetAddress add = dp.getAddress();
+
+			DatagramPacket dp1 = new DatagramPacket(str1.getBytes(), str.length(), add, dp.getPort());
+			
+			ds.send(dp1);
 		}
 		ds.close();
 

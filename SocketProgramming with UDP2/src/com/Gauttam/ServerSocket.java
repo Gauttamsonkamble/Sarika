@@ -28,12 +28,13 @@ public class ServerSocket {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Enter massage :");
-		String str1 = sc.nextLine().trim();
+		String str1 = sc.nextLine();
 
-		InetAddress add = InetAddress.getByName("localhost");
+		InetAddress add = dp.getAddress();
 
-		DatagramPacket dp1 = new DatagramPacket(str1.getBytes(), str.length(), add, 3002);
+		DatagramPacket dp1 = new DatagramPacket(str1.getBytes(), str1.length(), add, dp.getPort());
 
+		ds.send(dp1);
 		ds.close();
 
 	}

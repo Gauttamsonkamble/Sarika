@@ -13,6 +13,8 @@ public class ClientSocket {
 		DatagramSocket ds = new DatagramSocket();
 
 		Scanner sc = new Scanner(System.in);
+		
+		byte bt[] = new byte[1024];
 
 		String str = "";
 		while (!str.equals("Bye")) {
@@ -26,13 +28,13 @@ public class ClientSocket {
 
 			ds.send(dp);
 
-			byte bt[] = new byte[1024];
+			
 
-			DatagramPacket dp1 = new DatagramPacket(bt, 1024);
+			DatagramPacket dp1 = new DatagramPacket(bt, bt.length);
 
 			ds.receive(dp1);
 
-			String str1 = new String(dp.getData(), 0, dp.getLength());
+			String str1 = new String(dp1.getData());
 
 			System.out.println("Server massage :" + str1);
 		}

@@ -17,6 +17,8 @@ public class ClientSocket {
 		System.out.println("Enter massage :");
 		String str = sc.nextLine();
 		
+		byte bt[] = new byte[1024];
+		
 		InetAddress add = InetAddress.getByName("localhost");
 		
 		DatagramPacket dp = new DatagramPacket(str.getBytes(),str.length(),add,3002);
@@ -24,13 +26,13 @@ public class ClientSocket {
 		ds.send(dp);
 		
 		
-		byte bt[] = new byte[1024];
+		
 
-		DatagramPacket dp1 = new DatagramPacket(bt, 1024);
+		DatagramPacket dp1 = new DatagramPacket(bt, bt.length);
 
 		ds.receive(dp1);
 
-		String str1 = new String(dp.getData(), 0, dp.getLength());
+		String str1 = new String(dp1.getData());
 
 		System.out.println("Server massage :" + str1);
 		ds.close();
