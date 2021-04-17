@@ -5,26 +5,26 @@ import java.util.*;
 
 public class ClientSocket {
 
-    public static void main(String [] args) {
-        System.setProperty("java.net.preferIPv4Stack", "true");
-
-        try {
-            InetAddress group = InetAddress.getByName("localhost");
-            MulticastSocket mSocket = new MulticastSocket(3456);
-            mSocket.joinGroup(group);
-
-            int i = 0;
-            while(i < 10) {
-                byte[] buffer = new byte[100];
-                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-                mSocket.receive(packet);
-
-                System.out.println(new String(buffer));
-                i++;
-            }
-            mSocket.close();
-            System.out.println("Closed Socket");
-        } catch (Exception e) {e.printStackTrace();}
+    @SuppressWarnings("deprecation")
+	public static void main(String [] args) throws IOException,ArrayIndexOutOfBoundsException {
+        
+//    	String group = args[1];
+    	
+    	MulticastSocket mc = new MulticastSocket(6000);
+    	
+    	mc.joinGroup(InetAddress.getByName("226.4.5.6"));
+    	
+    	byte bt[] = new byte[1024];
+    	
+    	DatagramPacket dp = new DatagramPacket(bt, bt.length);
+    	
+    	mc.receive(dp);
+    	
+    	String str = new String(dp.getData(),0,dp.getLength()); 
+    	
+    	System.out.println(str);
+    	
+    	mc.close();
     }
 
 }
