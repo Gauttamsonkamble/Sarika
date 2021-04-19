@@ -5,14 +5,18 @@ import java.util.*;
 
 public class ClientSocket {
 
-    @SuppressWarnings("deprecation")
+   
 	public static void main(String [] args) throws IOException,ArrayIndexOutOfBoundsException {
         
-//    	String group = args[1];
+		try
+		{
+			
+		
+		InetAddress group =InetAddress.getByName("225.4.5.6");
     	
-    	MulticastSocket mc = new MulticastSocket(6000);
+    	MulticastSocket mc = new MulticastSocket(3456);
     	
-    	mc.joinGroup(InetAddress.getByName("226.4.5.6"));
+    	mc.joinGroup(group);
     	
     	byte bt[] = new byte[1024];
     	
@@ -20,11 +24,14 @@ public class ClientSocket {
     	
     	mc.receive(dp);
     	
-    	String str = new String(dp.getData(),0,dp.getLength()); 
-    	
-    	System.out.println(str);
+    	System.out.println(new String(bt));
     	
     	mc.close();
+    	
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
 }
